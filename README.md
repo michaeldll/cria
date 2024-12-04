@@ -1,10 +1,10 @@
 # cria
 
-This is a barebones work-in-progress WebGPU library.
+This is a barebones work-in-progress WebGPU library with a WebGL fallback.
 
 ## hunter-gatherer boilerplate
 
-A Typescript and WebGL/WebGPU boilerplate. As barebones I'm willing to go.
+An esbuild, Typescript, SASS, and WebGL/WebGPU boilerplate. As barebones I'm willing to go.
 
 Featuring:
 
