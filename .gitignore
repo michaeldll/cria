@@ -106,4 +106,5 @@ dist
 # MacOS garbage
 *.DS_Store
 
-public/built/
+examples/public/scss/
+examples/public/example.js
