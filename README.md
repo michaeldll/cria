@@ -1,6 +1,6 @@
 # cria
 
-Aims at being a readable work-in-progress WebGPU library, aimed at developers with previous experience with three.js.
+Aims at being a minimal WebGPU library, aimed at developers with previous experience with three.js.
 
 ## Principles
 
