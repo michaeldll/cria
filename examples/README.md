@@ -11,7 +11,7 @@ Featuring:
 ## How to develop :
 
 ```
-npm i 
+npm i
 npm run dev
 ```
 
@@ -22,6 +22,7 @@ Assets need to be fetched from the `/public` folder.
 These values are configurable in `watch.mjs` and through the `<script/>` tag in `index.html`.
 
 ## How to deploy
+
 ```
 npm run build
 ```

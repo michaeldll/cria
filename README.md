@@ -18,4 +18,4 @@ These are the main sources used when developing this library:
 [1]: https://webgpufundamentals.org/webgpu/lessons/webgpu-from-webgl.html
 [2]: https://developer.mozilla.org/en-US/docs/Web/API/GPUDevice/createRenderPipeline
 
-Heavily inspired by [four](https://github.com/CodyJasonBennett/four), [three.js](https://github.com/mrdoob/three) and [OGL](https://github.com/oframe/ogl).
+Repository architecture is inspired by [four](https://github.com/CodyJasonBennett/four) and [three.js](https://github.com/mrdoob/three).
