@@ -1,11 +1,12 @@
 import Renderer from "./Renderer";
 import Object3D from "./Object3D";
 import Geometry from "./Geometry";
+import Camera from "./Camera";
 
 export default abstract class Mesh extends Object3D {
 	public renderer: Renderer;
 	protected device: GPUDevice;
-	protected geometry: Geometry;
+	public geometry: Geometry;
 	protected shader: string;
 	protected shaderModule: GPUShaderModule;
 	protected pipeline: GPURenderPipeline;
@@ -23,5 +24,5 @@ export default abstract class Mesh extends Object3D {
 	protected abstract initPipeline(): void;
 	protected initUniforms?(): void;
 	protected initTexture?(): void;
-	public render?(time?: number): void;
+	public render?(camera: Camera, time?: number): void;
 }

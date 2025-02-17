@@ -1,5 +1,5 @@
 import Mesh from "./Mesh";
-import Object3D from "./Object3D";
+import Scene from "./Scene";
 
 type RendererSettings = {
 	format: GPUTextureFormat;
@@ -15,7 +15,7 @@ export default class Renderer {
 	public canvas: HTMLCanvasElement;
 	public settings: RendererSettings;
 
-	public scene: Object3D[] | Mesh[] = [];
+	public scene: Scene = new Scene();
 
 	private adapter: GPUAdapter;
 	public device: GPUDevice;
@@ -188,8 +188,9 @@ export default class Renderer {
 		// Start rendering:
 		this.passEncoder = this.commandEncoder.beginRenderPass(this.renderPassDescriptor);
 
-		for (const node of this.scene) {
-			if (node instanceof Mesh) node.render(time);
+		// Traverse scene graph
+		for (const node of this.scene.children) {
+			if (node instanceof Mesh) node.render(this.scene.camera, time);
 		}
 
 		this.passEncoder.end();

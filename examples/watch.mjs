@@ -4,7 +4,7 @@ import { glsl } from "esbuild-plugin-glsl";
 
 let ctx = await esbuild.context({
 	plugins: [sassPlugin({ type: "style" }), glsl({ minify: false })],
-	entryPoints: ["example.ts", "scss/global.scss"],
+	entryPoints: ["example.ts"], // add "scss/global.scss" here if using SCSS
 	bundle: true,
 	outdir: "public",
 	define: {

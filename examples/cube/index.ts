@@ -10,7 +10,7 @@ const renderer = new Renderer(canvas);
 let cube: Cube;
 renderer.init().then(() => {
 	cube = new Cube(renderer, new BoxGeometry(1), cubeShader);
-	renderer.scene.push(cube);
+	renderer.scene.add(cube);
 });
 
 const tick = (time: number) => {
@@ -25,3 +25,9 @@ const tick = (time: number) => {
 };
 
 requestAnimationFrame(tick);
+
+// Enable esbuild hot reloading in development:
+type Window = typeof window & { IS_PRODUCTION: boolean };
+if (!(window as Window).IS_PRODUCTION) {
+	new EventSource("/esbuild").addEventListener("change", () => location.reload());
+}

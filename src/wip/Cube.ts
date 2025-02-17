@@ -3,13 +3,8 @@ import Mesh from "../core/Mesh";
 import createBuffer from "../utils/createBuffer";
 import { vec3, mat4, Mat4 } from "wgpu-matrix";
 import Geometry from "@/core/Geometry";
+import Camera from "@/core/Camera";
 
-const FOV = 30;
-const NEAR = 0.1;
-const FAR = 10;
-const EYE = [0, 0, -6];
-const LOOK_AT = [0, 0, 0];
-const UP = [0, 1, 0];
 const LIGHT_DIRECTION = [1, 8, -10];
 
 export default class Cube extends Mesh {
@@ -28,7 +23,6 @@ export default class Cube extends Mesh {
 	vertexUniformValues: Float32Array;
 	fragmentUniformValues: Float32Array;
 
-	projectionMatrix: Mat4 = mat4.identity();
 	viewMatrix: Mat4 = mat4.identity();
 	modelMatrix: Mat4 = mat4.identity();
 	viewProjectionMatrix: Mat4 = mat4.identity();
@@ -176,30 +170,22 @@ export default class Cube extends Mesh {
 		});
 	};
 
-	public calcMatrices = (time: number): void => {
-		// Model
+	public calcMatrices = (camera: Camera, time: number): void => {
+		// Model Matrix
 		this.modelMatrix = mat4.identity();
 		this.modelMatrix = mat4.translate(this.modelMatrix, this.position);
 		this.modelMatrix = mat4.rotateX(this.modelMatrix, this.rotation[0]);
 		this.modelMatrix = mat4.rotateY(this.modelMatrix, this.rotation[1]);
 		this.modelMatrix = mat4.rotateZ(this.modelMatrix, this.rotation[2]);
 		this.modelMatrix = mat4.scale(this.modelMatrix, this.scale);
-
 		mat4.transpose(mat4.inverse(this.modelMatrix), this.modelInverseTransposeMatrix);
 
-		// Projection
-		this.projectionMatrix = mat4.perspective((FOV * Math.PI) / 180, this.renderer.canvas.clientWidth / this.renderer.canvas.clientHeight, NEAR, FAR);
-
-		// View
-		this.viewMatrix = mat4.lookAt(EYE, LOOK_AT, UP);
-		this.viewProjectionMatrix = mat4.multiply(this.projectionMatrix, this.viewMatrix);
-
-		// Model View Projection
-		mat4.multiply(this.viewProjectionMatrix, this.modelMatrix, this.modelViewProjectionMatrix);
+		// Model View Projection Matrix
+		mat4.multiply(camera.viewProjectionMatrix, this.modelMatrix, this.modelViewProjectionMatrix);
 	};
 
-	public render = (time: number): void => {
-		this.calcMatrices(time);
+	public render = (camera: Camera, time: number): void => {
+		this.calcMatrices(camera, time);
 
 		// Directional Light
 		vec3.normalize(LIGHT_DIRECTION, this.lightDirection);
