@@ -14,8 +14,8 @@ Aims at being a minimal WebGPU library for developers familiar with Three.js.
 ## Inspirations
 
 These are the main sources I used when developing this library:
-[0]: https://github.com/toji/hello-triangle-webgpu/blob/main/index.html
-[1]: https://webgpufundamentals.org/webgpu/lessons/webgpu-from-webgl.html
-[2]: https://developer.mozilla.org/en-US/docs/Web/API/GPUDevice/createRenderPipeline
+- [0]: https://github.com/toji/hello-triangle-webgpu/blob/main/index.html
+- [1]: https://webgpufundamentals.org/webgpu/lessons/webgpu-from-webgl.html
+- [2]: https://developer.mozilla.org/en-US/docs/Web/API/GPUDevice/createRenderPipeline
 
 Repository architecture is inspired by [four](https://github.com/CodyJasonBennett/four) and [three.js](https://github.com/mrdoob/three).
