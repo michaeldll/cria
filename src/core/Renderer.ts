@@ -186,6 +186,7 @@ export default class Renderer {
 		this.commandEncoder = this.device.createCommandEncoder({ label: "Main Command Encoder" });
 
 		// Start rendering:
+		// [0]: All rendering commands happen in a render pass.
 		this.passEncoder = this.commandEncoder.beginRenderPass(this.renderPassDescriptor);
 
 		// Traverse scene graph
