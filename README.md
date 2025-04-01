@@ -6,7 +6,7 @@ Aims at being a minimal WebGPU library for developers familiar with [Three.js](h
 
 - Uses the Three.js API when possible or with a similar level of abstraction, due to it's proven ease-of-use and familiarity to many web developers.
 - Retains only the most essential and easily extendable features from Three.js, for a convenient but lightweight codebase with a small bundle size.
-- GLSL or WGSL shading languages only, no nodes or Three.js Shader Language.
+- WGSL shading language only, therefore no nodal system or Three.js Shader Language.
 - Easily extendable, convenient default materials.
 - Provides several examples to be used as implementation references.
 - Typescript by default, ES6 modules only, as few dependencies as possible.
