@@ -1,6 +1,7 @@
 import * as esbuild from "esbuild";
 import { sassPlugin } from "esbuild-sass-plugin";
 import { glsl } from "esbuild-plugin-glsl";
+import { detect } from 'detect-port';
 
 let ctx = await esbuild.context({
 	plugins: [sassPlugin({ type: "style" }), glsl({ minify: false })],
@@ -14,11 +15,25 @@ let ctx = await esbuild.context({
 
 await ctx.watch();
 
-let { host, port } = await ctx.serve({
-	servedir: "public",
-	port: 1234,
-	keyfile: "https.key",
-	certfile: "https.cert",
-});
+let targetPort = 1234;
 
-console.log(`running on https://${host}:${port}`);
+try {
+	let realPort = await detect(targetPort);
+	console.log(realPort);
+
+	if (targetPort !== realPort) {
+		console.log(`port: ${targetPort} was occupied, trying port: ${realPort}`);
+		targetPort = realPort;
+	}
+
+	let { host, port } = await ctx.serve({
+		servedir: "public",
+		port: targetPort,
+		keyfile: "https.key",
+		certfile: "https.cert",
+	});
+
+	console.log(`running on https://${host}:${port}`);
+} catch (err) {
+	console.log(err);
+}
