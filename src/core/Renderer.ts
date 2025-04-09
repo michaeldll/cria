@@ -52,7 +52,16 @@ export default class Renderer {
 	// [0]: Adapter, device, context
 	async initAPI() {
 		// [0]: Check for WebGPU support first by seeing if navigator.gpu exists.
-		if (!navigator.gpu) throw new Error("This browser does not support WebGPU.");
+		if (!navigator.gpu) {
+			// Inject error dialog box
+			const errorDialog = document.createElement("dialog");
+			errorDialog.textContent = "This browser does not support WebGPU.";
+			errorDialog.style.display = "block";
+			document.body.append(errorDialog);
+
+			// Throw error
+			throw new Error("This browser does not support WebGPU.");
+		}
 
 		// [0]: WebGPU apps start by getting an Adapter, which represents a physical GPU.
 		this.adapter = await navigator.gpu.requestAdapter();

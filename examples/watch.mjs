@@ -19,7 +19,6 @@ let targetPort = 1234;
 
 try {
 	let realPort = await detect(targetPort);
-	console.log(realPort);
 
 	if (targetPort !== realPort) {
 		console.log(`port: ${targetPort} was occupied, trying port: ${realPort}`);
