@@ -1,3 +1,4 @@
+import Camera from "./Camera";
 import Mesh from "./Mesh";
 import Scene from "./Scene";
 
@@ -14,8 +15,6 @@ type RendererSettings = {
 export default class Renderer {
 	public canvas: HTMLCanvasElement;
 	public settings: RendererSettings;
-
-	public scene: Scene = new Scene();
 
 	private adapter: GPUAdapter;
 	public device: GPUDevice;
@@ -175,7 +174,7 @@ export default class Renderer {
 
 	/* Rendering: */
 	// [0]: Write and submit commands to queue
-	encodeCommands = (time: number) => {
+	encodeCommands = (scene: Scene, camera: Camera, time: number) => {
 		// [0]: Get the current texture from the canvas context and set it as the texture to render to.
 		this.colorTexture = this.context.getCurrentTexture();
 		this.colorTextureView = this.colorTexture.createView();
@@ -199,8 +198,8 @@ export default class Renderer {
 		this.passEncoder = this.commandEncoder.beginRenderPass(this.renderPassDescriptor);
 
 		// Traverse scene graph
-		for (const node of this.scene.children) {
-			if (node instanceof Mesh) node.render(this.scene.camera, time);
+		for (const node of scene?.children) {
+			if (node instanceof Mesh) node.render(camera, time);
 		}
 
 		this.passEncoder.end();
@@ -209,10 +208,10 @@ export default class Renderer {
 		return this.commandEncoder.finish();
 	};
 
-	render = (time: number) => {
+	render = (scene: Scene, camera: Camera, time: number) => {
 		this.resize();
 
-		const commandBuffer = this.encodeCommands(time);
+		const commandBuffer = this.encodeCommands(scene, camera, time);
 
 		// [0]: Command buffers don't execute right away, you have to submit them to the device queue.
 		this.device.queue.submit([commandBuffer]);

@@ -1,2 +1,2 @@
 // Import your example here:
-import "./cubes";
+import "./cube";

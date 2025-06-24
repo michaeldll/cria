@@ -1,6 +1,6 @@
 # cria
 
-Aims at being a minimal WebGPU library for developers familiar with [Three.js](https://github.com/mrdoob/three).
+Work in Progress. Aims at being a minimal WebGPU library, for developers familiar with [Three.js](https://github.com/mrdoob/three).
 
 ## Principles
 
@@ -17,3 +17,36 @@ Aims at being a minimal WebGPU library for developers familiar with [Three.js](h
 - \[1]: https://webgpufundamentals.org/webgpu/lessons/webgpu-from-webgl.html
 - \[2]: https://developer.mozilla.org/en-US/docs/Web/API/GPUDevice/createRenderPipeline
 - \[3]: https://github.com/CodyJasonBennett/four
+
+## Installation
+
+`npm i`<br>
+`npm run build`
+
+Then, import your files from `dist/`.
+
+## Local development
+
+`npm i`<br>
+`cd examples`<br>
+`npm run dev`<br>
+
+This starts a local self-signed HTTPS server and displays a rotating cube.<br/>
+When you open the local development URL in your browser, you may encounter a security warning due to the self-signed HTTPS certificate. You can safely proceed.<br/>
+To run an example, simply `import` it in `examples/example.ts`.
+
+## Example :
+
+```ts
+import { Desenhador, Cube } from ""
+
+// Renderer
+const { gl, draw } = new Desenhador()
+
+```
+
+![Red cube](https://i.imgur.com/ZoJGlo6.png)
+
+More examples available under `/examples`:
+- Fullscreen shader
+- OBJ model and texture loading

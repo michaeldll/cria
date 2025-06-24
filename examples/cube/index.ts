@@ -1,27 +1,38 @@
 import Renderer from "@/core/Renderer";
+import Scene from "@/core/Scene";
 import Cube from "@/wip/Cube";
-import cubeShader from "./shaders/debugUv.wgsl";
-import { BoxGeometry } from "@/index";
+import shader from "./shaders/debugUv.wgsl";
+import PerspectiveCamera from "@/core/PerspectiveCamera";
+import BoxGeometry from "@/geometries/BoxGeometry";
 
 const canvas = document.querySelector("#mainCanvas") as HTMLCanvasElement;
 const renderer = new Renderer(canvas);
 
-// TODO: delay references to GPUDevice to after the renderer has been initialized in order to improve API
+let scene: Scene;
+let camera: PerspectiveCamera;
 let cube: Cube;
+
 renderer.init().then(() => {
-	cube = new Cube(renderer, new BoxGeometry(1), cubeShader);
-	renderer.scene.add(cube);
+	scene = new Scene();
+
+	camera = new PerspectiveCamera(30, renderer.canvas.clientWidth / renderer.canvas.clientHeight);
+	camera.position[2] = -10;
+	camera.updateViewMatrix();
+	camera.updateViewProjectionMatrix();
+
+	cube = new Cube(renderer, new BoxGeometry(1), shader);
+	scene.add(cube);
 });
 
 const tick = (time: number) => {
 	requestAnimationFrame(tick);
 
-	if (!renderer.device) return;
+	if (!renderer.device || !cube) return;
 
 	cube.rotation[0] -= 0.01;
 	cube.rotation[1] += 0.01;
 
-	renderer.render(time);
+	renderer.render(scene, camera, time);
 };
 
 requestAnimationFrame(tick);

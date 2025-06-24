@@ -14,10 +14,13 @@
 	},
 	"homepage": "https://github.com/michaeldll/hunter-gatherer-boilerplate#readme",
 	"scripts": {
+		"build": "tsc",
+		"publish": "npm version patch && npm publish",
 		"format": "prettier --write ."
 	},
 	"dependencies": {
 		"@webgpu/types": "^0.1.34",
+		"typescript": "^5.8.3",
 		"wgpu-matrix": "^2.9.1"
 	},
 	"devDependencies": {
